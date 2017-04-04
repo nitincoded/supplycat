@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost/supplycat</property>
+        <property name="hibernate.connection.username">root</property>
+        <property name="hibernate.connection.password"></property>
+        <property name="hibernate.hbm2ddl.auto">update</property>
+
+        <mapping class="com.enterprisecat.entity.Organization" />
+        <mapping class="com.enterprisecat.entity.PartCategory" />
+        <mapping class="com.enterprisecat.entity.Part" />
+        <mapping class="com.enterprisecat.entity.PartClass" />
+        <mapping class="com.enterprisecat.entity.PartCommodity" />
+        <mapping class="com.enterprisecat.entity.PartStatus" />
+        <mapping class="com.enterprisecat.entity.PartUom" />
+        <mapping class="com.enterprisecat.entity.User" />
+    </session-factory>
+</hibernate-configuration>
