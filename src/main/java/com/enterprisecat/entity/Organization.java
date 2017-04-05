@@ -7,9 +7,10 @@ import javax.persistence.*;
  */
 @Entity
 public class Organization {
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String code;
 
+    @Column(nullable = false)
     private String description;
 
     @Id

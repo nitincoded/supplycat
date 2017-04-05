@@ -6,9 +6,10 @@ import java.util.Date;
 
 @Entity
 public class Part {
-	@Column(unique = true)
+	@Column(unique = true, nullable = false)
 	private String code;
 
+	@Column(nullable = false)
 	private String description;
 
 	@ManyToOne
@@ -20,7 +21,7 @@ public class Part {
 	private PartCategory partCategory;
 
 	@ManyToOne
-	@JoinColumn(name = "inventory_uom")
+	@JoinColumn(name = "inventory_uom", nullable = false)
 	private PartUom inventoryUom;
 
 	private boolean trackLot;

@@ -7,11 +7,12 @@ import javax.persistence.*;
  */
 @Entity
 public class PartStatus {
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String code;
     public String getCode() { return code; }
     public void setCode(String a) { code=a; }
 
+    @Column(nullable = false)
     private String description;
     public String getDescription() { return description; }
     public void setDescription(String a) { description=a; }
@@ -19,7 +20,6 @@ public class PartStatus {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
     public int getId() { return id; }
     public void setId(int a) { id=a; }
 }
