@@ -4,6 +4,7 @@ import static spark.Spark.*;
 
 import com.enterprisecat.biz.OrganizationHandler;
 import com.enterprisecat.entity.Organization;
+import com.enterprisecat.util.AuthenticationUtility;
 import com.enterprisecat.util.GsonUtility;
 import spark.Request;
 import spark.Response;
@@ -21,8 +22,17 @@ public class OrganizationController {
         post("/delete/organization/code/:code", this::deleteByCode);
     }
 
+    private boolean validateAuthentication(Request request, Response response) throws Exception {
+        return AuthenticationUtility.getInstance().validateCredentials(
+            request.headers("username"),
+            request.headers("password")
+        );
+    }
+
     public String index(Request request, Response response) {
         try {
+            if (!validateAuthentication(request, response)) { response.status(401); return null; }
+
             return GsonUtility.getInstance().toJson(OrganizationHandler.getList());
         }
         catch (Exception ex) {
@@ -33,6 +43,8 @@ public class OrganizationController {
 
     public String getById(Request request, Response response) {
         try {
+            if (!validateAuthentication(request, response)) { response.status(401); return null; }
+
             String id = request.params(":id");
             return GsonUtility.getInstance().toJson(OrganizationHandler.getById(Integer.parseInt(id)));
         }
@@ -44,6 +56,8 @@ public class OrganizationController {
 
     public String getByCode(Request request, Response response) {
         try {
+            if (!validateAuthentication(request, response)) { response.status(401); return null; }
+
             String code = request.params(":code");
             return GsonUtility.getInstance().toJson(OrganizationHandler.getByCode(code));
         }
@@ -55,6 +69,8 @@ public class OrganizationController {
 
     public String save(Request request, Response response) {
         try {
+            if (!validateAuthentication(request, response)) { response.status(401); return null; }
+
             Organization org = (Organization) GsonUtility.getInstance().fromJson(request.body(), Organization.class);
             OrganizationHandler.save(org);
             return Boolean.toString(true);
@@ -67,6 +83,8 @@ public class OrganizationController {
 
     public String deleteById(Request request, Response response) {
         try {
+            if (!validateAuthentication(request, response)) { response.status(401); return null; }
+
             String id = request.params(":id");
             OrganizationHandler.delete(OrganizationHandler.getById(Integer.parseInt(id)));
             return Boolean.toString(true);
@@ -79,6 +97,8 @@ public class OrganizationController {
 
     public String deleteByCode(Request request, Response response) {
         try {
+            if (!validateAuthentication(request, response)) { response.status(401); return null; }
+
             String code = request.params(":code");
             OrganizationHandler.delete(OrganizationHandler.getByCode(code));
             return Boolean.toString(true);
