@@ -13,7 +13,7 @@ import static spark.Spark.post;
 /**
  * Created by Developer on 4/7/17.
  */
-public class PartController {
+public class PartController implements StandardCrudController {
     public void registerRoutes() {
         get("/list/part", this::index);
         get("/get/part/id/:id", this::getById);

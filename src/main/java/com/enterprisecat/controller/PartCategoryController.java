@@ -1,32 +1,33 @@
 package com.enterprisecat.controller;
 
-import static spark.Spark.*;
-
-import com.enterprisecat.biz.OrganizationHandler;
-import com.enterprisecat.entity.Organization;
+import com.enterprisecat.biz.PartCategoryHandler;
+import com.enterprisecat.entity.PartCategory;
 import com.enterprisecat.util.AuthenticationUtility;
 import com.enterprisecat.util.GsonUtility;
 import spark.Request;
 import spark.Response;
 
+import static spark.Spark.get;
+import static spark.Spark.post;
+
 /**
- * Created by Developer on 4/5/17.
+ * Created by Developer on 4/7/17.
  */
-public class OrganizationController implements StandardCrudController {
+public class PartCategoryController implements StandardCrudController {
     public void registerRoutes() {
-        get("/list/organization", this::index);
-        get("/get/organization/id/:id", this::getById);
-        get("/get/organization/code/:code", this::getByCode);
-        post("/save/organization", this::save);
-        post("/delete/organization/id/:id", this::deleteById);
-        post("/delete/organization/code/:code", this::deleteByCode);
+        get("/list/partcategory", this::index);
+        get("/get/partcategory/id/:id", this::getById);
+        get("/get/partcategory/code/:code", this::getByCode);
+        post("/save/partcategory", this::save);
+        post("/delete/partcategory/id/:id", this::deleteById);
+        post("/delete/partcategory/code/:code", this::deleteByCode);
     }
 
     public String index(Request request, Response response) {
         try {
             if (!AuthenticationUtility.getInstance().validateAuthentication(request, response)) { response.status(401); return null; }
 
-            return GsonUtility.getInstance().toJson(OrganizationHandler.getList());
+            return GsonUtility.getInstance().toJson(PartCategoryHandler.getList());
         }
         catch (Exception ex) {
             response.status(500);
@@ -39,7 +40,7 @@ public class OrganizationController implements StandardCrudController {
             if (!AuthenticationUtility.getInstance().validateAuthentication(request, response)) { response.status(401); return null; }
 
             String id = request.params(":id");
-            return GsonUtility.getInstance().toJson(OrganizationHandler.getById(Integer.parseInt(id)));
+            return GsonUtility.getInstance().toJson(PartCategoryHandler.getById(Integer.parseInt(id)));
         }
         catch (Exception ex) {
             response.status(500);
@@ -52,7 +53,7 @@ public class OrganizationController implements StandardCrudController {
             if (!AuthenticationUtility.getInstance().validateAuthentication(request, response)) { response.status(401); return null; }
 
             String code = request.params(":code");
-            return GsonUtility.getInstance().toJson(OrganizationHandler.getByCode(code));
+            return GsonUtility.getInstance().toJson(PartCategoryHandler.getByCode(code));
         }
         catch (Exception ex) {
             response.status(500);
@@ -64,8 +65,8 @@ public class OrganizationController implements StandardCrudController {
         try {
             if (!AuthenticationUtility.getInstance().validateAuthentication(request, response)) { response.status(401); return null; }
 
-            Organization org = (Organization) GsonUtility.getInstance().fromJson(request.body(), Organization.class);
-            OrganizationHandler.save(org);
+            PartCategory org = (PartCategory) GsonUtility.getInstance().fromJson(request.body(), PartCategory.class);
+            PartCategoryHandler.save(org);
             return Boolean.toString(true);
         }
         catch (Exception ex) {
@@ -79,7 +80,7 @@ public class OrganizationController implements StandardCrudController {
             if (!AuthenticationUtility.getInstance().validateAuthentication(request, response)) { response.status(401); return null; }
 
             String id = request.params(":id");
-            OrganizationHandler.delete(OrganizationHandler.getById(Integer.parseInt(id)));
+            PartCategoryHandler.delete(PartCategoryHandler.getById(Integer.parseInt(id)));
             return Boolean.toString(true);
         }
         catch (Exception ex) {
@@ -93,7 +94,7 @@ public class OrganizationController implements StandardCrudController {
             if (!AuthenticationUtility.getInstance().validateAuthentication(request, response)) { response.status(401); return null; }
 
             String code = request.params(":code");
-            OrganizationHandler.delete(OrganizationHandler.getByCode(code));
+            PartCategoryHandler.delete(PartCategoryHandler.getByCode(code));
             return Boolean.toString(true);
         }
         catch (Exception ex) {
