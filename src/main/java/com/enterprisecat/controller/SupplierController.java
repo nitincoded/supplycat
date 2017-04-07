@@ -14,6 +14,7 @@ import static spark.Spark.post;
  * Created by Developer on 4/7/17.
  */
 public class SupplierController implements StandardCrudController {
+    @Override
     public void registerRoutes() {
         get("/list/supplier", this::index);
         get("/get/supplier/id/:id", this::getById);

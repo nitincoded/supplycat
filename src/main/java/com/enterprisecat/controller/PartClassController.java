@@ -14,6 +14,7 @@ import static spark.Spark.post;
  * Created by Developer on 4/7/17.
  */
 public class PartClassController implements StandardCrudController {
+    @Override
     public void registerRoutes() {
         get("/list/partclass", this::index);
         get("/get/partclass/id/:id", this::getById);

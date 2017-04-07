@@ -13,6 +13,7 @@ import spark.Response;
  * Created by Developer on 4/5/17.
  */
 public class OrganizationController implements StandardCrudController {
+    @Override
     public void registerRoutes() {
         get("/list/organization", this::index);
         get("/get/organization/id/:id", this::getById);

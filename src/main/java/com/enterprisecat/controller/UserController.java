@@ -14,6 +14,7 @@ import static spark.Spark.post;
  * Created by Developer on 4/7/17.
  */
 public class UserController implements StandardCrudController {
+    @Override
     public void registerRoutes() {
         get("/list/user", this::index);
         get("/get/user/id/:id", this::getById);
