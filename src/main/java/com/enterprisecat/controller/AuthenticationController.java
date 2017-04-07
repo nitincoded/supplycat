@@ -1,5 +1,6 @@
 package com.enterprisecat.controller;
 
+import com.enterprisecat.util.PebbleEngineUtility;
 import com.mitchellbosecke.pebble.PebbleEngine;
 import spark.Request;
 import spark.Response;
@@ -12,8 +13,6 @@ import java.io.StringWriter;
  * Created by Developer on 4/7/17.
  */
 public class AuthenticationController implements BaseController {
-    PebbleEngine templateEngine = new PebbleEngine.Builder().build();
-
     public String authenticate(Request request, Response response) {
         String username = request.attribute("inputUsername");
         String password = request.attribute("inputPassword");
@@ -33,7 +32,7 @@ public class AuthenticationController implements BaseController {
     public String login(Request request, Response response) throws Exception {
         //resp.header("Content-Encoding", "gzip");
         StringWriter stringWriter = new StringWriter();
-        templateEngine.getTemplate("templates/home.html").evaluate(stringWriter);
+        PebbleEngineUtility.getTemplateEngine().getTemplate("templates/home.html").evaluate(stringWriter);
         return stringWriter.toString();
     }
 
