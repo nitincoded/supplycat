@@ -3,6 +3,8 @@ package com.enterprisecat.util;
 import com.enterprisecat.entity.User;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
+import spark.Request;
+import spark.Response;
 
 /**
  * Created by Developer on 4/4/17.
@@ -52,5 +54,12 @@ public class AuthenticationUtility {
         Long cnt = (Long) qry.uniqueResult();
         if (cnt == 1) return true;
         else return false;
+    }
+
+    public boolean validateAuthentication(Request request, Response response) throws Exception {
+        return AuthenticationUtility.getInstance().validateCredentials(
+                request.headers("username"),
+                request.headers("password")
+        );
     }
 }

@@ -1,8 +1,8 @@
 package com.enterprisecat;
 
 import com.enterprisecat.controller.OrganizationController;
+import com.enterprisecat.controller.PartController;
 import com.mitchellbosecke.pebble.PebbleEngine;
-import com.mitchellbosecke.pebble.error.PebbleException;
 import spark.Request;
 import spark.Response;
 
@@ -21,6 +21,7 @@ public class WebServer {
 //        get("/", (request, response) -> "Hello");
 
         new OrganizationController().registerRoutes();
+        new PartController().registerRoutes();
 
         WebServer ws = new WebServer();
 
